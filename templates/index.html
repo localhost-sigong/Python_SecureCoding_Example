@@ -6,7 +6,7 @@
     <body>
         <div class="container">
             <h1>로컬호스트의 SQL Injection 시연 서버</h1>
-            <form action="process.php" method="POST">
+            <form action="{{ url_for('sign_up')}}" method="POST">
               <div class="form-group">
                 <label for="username1">사용자 이름</label>
                 <input type="text" class="form-control" id="username1" name="username" placeholder="사용자 이름을 입력해주세요.">
@@ -20,9 +20,10 @@
                   <input type="checkbox" onchange="onClick(this);"> 클릭하여 비밀번호 보기
                 </label>
               </div>
-              <button type="submit" class="btn btn-default">로그인</button>
+              <button type="submit" class="btn btn-default" value="login">로그인</button>
             </form>
         </div>
+        {% block extra %}{% endblock %}
         <script>
           function onClick(cb) {
             console.log(cb.checked);

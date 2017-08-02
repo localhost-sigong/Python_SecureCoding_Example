@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' #TODO
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db' #TODO
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -18,10 +18,10 @@ class User(db.Model):
 def index():
     return render_template("index.html")
 
-@app.route("/signUp", methods=["POST"])
+@app.route("/sign_up", methods=["POST"])
 def register():
     if request.form["username"] == "" or request.form["password"] == "":
-        return render_template("sign_up.html")
+        return render_template("index.html")
     user = User(request.form["username"], request.form["password"])
     db.session.add(user)
     db.session.commit()
@@ -36,4 +36,4 @@ def login():
         if request.form["username"] and request.form["password"]:
             user = User.query.filter_by(username=request.form["username"]).first()
             if user is not none:
-                return render_template("loged_on.html")
+                return render_template("success.html")
